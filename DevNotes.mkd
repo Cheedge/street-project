@@ -1,0 +1,96 @@
+# Devevlopment Notes
+
+## Architecture
+
+### Backend
+
+The basic structure of the backend, we will follow the DDD+CQRS,
+and use feature/resource dominant sturcture, which will be more
+clear, easy maintainable, extendable.
+
+```
+/Common
+  - Interfaces
+    - IQuery
+    - IQueryHandler
+    - ICommand
+    - ICommandHandler
+/Resources
+  - Street
+    /Domain
+    - StreetDomain
+    - Geometry
+    - Coordinate
+    /Application
+    - Commands: CreateStreet, AddPoint, DeletePoint, DeleteStreet
+    - CommandHandlers
+    - Queries: GetStreet, GetPoint, GetAllStreets
+    - QueryHandlers
+    /Infrastructure
+    - Context
+    - Repository
+    - Entities
+        - StreetEntity
+    - Mappers
+        - StreetEntityAndStreetDomainMapper
+        - StreetDomainAndStreetDtoMapper
+    /API
+    - Controllers
+    - DTOs
+        - StreetDto
+```
+
+## Tech Stacks
+
+1. Frontend: simple Html/Css/Js or React
+2. Backend: .net core, EF
+3. DataBase: Postgres + PostGis
+4. CICD: GitHub Action
+5. Deploy: AWS 1 VPC - 2 subnet(1 public, 1 private)
+    - Elastic Beanstalk(Docker)/EC2 backend code (pub subnet)
+    - S3 frontend code (pub subnet)
+    - RDS Postgres (privare subnet)
+6. Security: IAM
+
+## Test Cases
+
+### Frontend
+
+1. show streets
+2. can add/delete point from one street
+3. can locate one street
+
+### Backend
+
+Accordng to the requiremnet, backend should basically realise:
+
+1. When sending GET streets request, Then get all items
+2. When sending GET street request, Where the Id/Geometry has limited, Then get the corresponding items
+3. When sending POST point to a street request, Where street exist, Then add a point to a street
+4. When sending POST street request, Then add a new street
+5. When sending DELET street request, Where the street exist, Then remove the record
+6. When sending DELET point of a street request, Where the street exist, Then remove the point.
+
+## Daily
+
+Receiving the email at June 11, start at June 13
+Sumbit (should be) June 17.
+In total 5 days for work.
+
+-   Day1: (13, Fri)
+    -   Basic structure design
+    -   DB design
+    -   Test cases
+    -   Tools choose
+    -   Basic implementation
+-   Day2:
+    -   Backend implementation
+    -   Database Migration
+-   Day3:
+    -   Frontend Implementation
+-   Day4:
+    -   Integration
+    -   CICD (github and AWS)
+    -   online (cloudflare)
+-   Day5:
+    -   check and submit
