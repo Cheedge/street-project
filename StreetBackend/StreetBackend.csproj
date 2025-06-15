@@ -1,0 +1,66 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.9" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="NetTopologySuite" Version="2.6.0" />
+    <PackageReference Include="Npgsql.NetTopologySuite" Version="9.0.3" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite" Version="9.0.4" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.18" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="5.5.0" />
+    <PackageReference Include="NLog.Extensions.Logging" Version="5.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\" />
+    <None Remove="Resources\Street\" />
+    <None Remove="Resources\Street\Domain\" />
+    <None Remove="Resources\Street\Application\" />
+    <None Remove="Resources\Street\Infrastructure\" />
+    <None Remove="Resources\Street\API\" />
+    <None Remove="Resources\Street\Infrastructure\Entities\" />
+    <None Remove="Resources\Street\Infrastructure\Mappers\" />
+    <None Remove="Common\" />
+    <None Remove="Common\Interfaces\" />
+    <None Remove="Resources\Street\API\Controllers\" />
+    <None Remove="Resources\Street\API\DTOs\" />
+    <None Remove="Resources\Street\Application\Commands\" />
+    <None Remove="Resources\Street\Application\Queries\" />
+    <None Remove="Resources\Street\Application\CommandHandlers\" />
+    <None Remove="Resources\Street\Application\QueryHandlers\" />
+    <None Remove="Resources\Street\Infrastructure\Repositories\" />
+    <None Remove="Resources\Street\Infrastructure\DbContexts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+    <Folder Include="Resources\Street\" />
+    <Folder Include="Resources\Street\Domain\" />
+    <Folder Include="Resources\Street\Application\" />
+    <Folder Include="Resources\Street\Infrastructure\" />
+    <Folder Include="Resources\Street\API\" />
+    <Folder Include="Resources\Street\Infrastructure\Entities\" />
+    <Folder Include="Resources\Street\Infrastructure\Mappers\" />
+    <Folder Include="Common\" />
+    <Folder Include="Common\Interfaces\" />
+    <Folder Include="Resources\Street\API\Controllers\" />
+    <Folder Include="Resources\Street\API\DTOs\" />
+    <Folder Include="Resources\Street\Application\Commands\" />
+    <Folder Include="Resources\Street\Application\Queries\" />
+    <Folder Include="Resources\Street\Application\CommandHandlers\" />
+    <Folder Include="Resources\Street\Application\QueryHandlers\" />
+    <Folder Include="Resources\Street\Infrastructure\Repositories\" />
+    <Folder Include="Resources\Street\Infrastructure\DbContexts\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="StreetBackend.csproj" />
+  </ItemGroup>
+</Project>

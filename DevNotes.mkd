@@ -1,8 +1,8 @@
 # Devevlopment Notes
 
-## Architecture
+## 1. Architecture
 
-### Backend
+### 1.1 Backend
 
 The basic structure of the backend, we will follow the DDD+CQRS,
 and use feature/resource dominant sturcture, which will be more
@@ -30,7 +30,7 @@ clear, easy maintainable, extendable.
     - Context
     - Repository
     - Entities
-        - StreetEntity
+        - StreetEntity:
     - Mappers
         - StreetEntityAndStreetDomainMapper
         - StreetDomainAndStreetDtoMapper
@@ -40,7 +40,7 @@ clear, easy maintainable, extendable.
         - StreetDto
 ```
 
-## Tech Stacks
+## 2. Tech Stacks
 
 1. Frontend: simple Html/Css/Js or React
 2. Backend: .net core, EF
@@ -52,15 +52,15 @@ clear, easy maintainable, extendable.
     - RDS Postgres (privare subnet)
 6. Security: IAM
 
-## Test Cases
+## 3. Test Cases
 
-### Frontend
+### 3.1 Frontend
 
 1. show streets
 2. can add/delete point from one street
 3. can locate one street
 
-### Backend
+### 3.2 Backend
 
 Accordng to the requiremnet, backend should basically realise:
 
@@ -71,7 +71,25 @@ Accordng to the requiremnet, backend should basically realise:
 5. When sending DELET street request, Where the street exist, Then remove the record
 6. When sending DELET point of a street request, Where the street exist, Then remove the point.
 
-## Daily
+## 4. Key Issue
+
+### 4.1 Handling Concurrency Conflicts
+
+[Handling Concurrency Conflicts](https://learn.microsoft.com/en-us/ef/core/saving/concurrency?tabs=fluent-api)
+
+1. concurrency token
+    - byte[] rowVersion/timestamp
+    - Guid rowVersion
+2. lock
+
+### 4.2 NetTopologySuite
+
+using NetTopologySuite.Geometries.Coordinate is more competable with PostGis
+but some point need to be careful:
+
+1. NetTopologySuite.Geometries.Coordinate(Y, X)
+
+## 5. Daily
 
 Receiving the email at June 11, start at June 13
 Sumbit (should be) June 17.
@@ -83,14 +101,14 @@ In total 5 days for work.
     -   Test cases
     -   Tools choose
     -   Basic implementation
--   Day2:
+-   Day2: (14, Sat)
     -   Backend implementation
     -   Database Migration
--   Day3:
+-   Day3: (15, Sun)
     -   Frontend Implementation
--   Day4:
+-   Day4: (16, Mon)
     -   Integration
     -   CICD (github and AWS)
     -   online (cloudflare)
--   Day5:
+-   Day5: (17, Thu)
     -   check and submit
