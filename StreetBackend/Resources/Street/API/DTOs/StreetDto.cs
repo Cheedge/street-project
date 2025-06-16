@@ -7,7 +7,7 @@ namespace StreetBackend.Resources.Street.API.DTOs
         public string Name { get; set; }
         public int Capacity { get; set; }
         public required List<CoordinateDto> Coordinates { get; set; }
-        public required byte[] RowVersion { get; set; }
+        public byte[] RowVersion { get; set; }
     }
 }
 

@@ -12,12 +12,21 @@ namespace StreetBackend.Resources.Street.Infrastructure.DbContexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<StreetEntity>()
+                .ToTable("Streets");
+
             modelBuilder.Entity<StreetEntity>()
                 .HasKey(e => e.Id);
 
+            // for optimistic concurrency
             modelBuilder.Entity<StreetEntity>()
                 .Property(e => e.RowVersion)
-                .IsRowVersion(); // for optimistic concurrency
+                .IsRowVersion()
+                .IsConcurrencyToken()
+                //.HasDefaultValueSql("gen_random_bytes(8)");
+                //.ValueGeneratedOnAddOrUpdate();
+                .ValueGeneratedNever();
         }
     }
 }

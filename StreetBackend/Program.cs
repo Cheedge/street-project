@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using NetTopologySuite;
+﻿using Microsoft.EntityFrameworkCore;
 using NLog;
 using NLog.Web;
 using StreetBackend.Common.Interfaces;
@@ -12,7 +10,6 @@ using StreetBackend.Resources.Street.Application.QueryHandlers;
 using StreetBackend.Resources.Street.Infrastructure.DbContexts;
 using StreetBackend.Resources.Street.Infrastructure.Mappers;
 using StreetBackend.Resources.Street.Infrastructure.Repositories;
-using Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite;
 
 
 // Early init of NLog to allow startup and exception logging, before host is built
@@ -32,12 +29,13 @@ builder.Services.AddSwaggerGen();
 // DB connection
 builder.Services.AddDbContext<StreetDbContext>(options =>
 {
-    var geometryFactory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
+    //var geometryFactory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("DefaultConnection"),
         x => x.UseNetTopologySuite().UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)
     );
 });
+
 
 
 // Automapper

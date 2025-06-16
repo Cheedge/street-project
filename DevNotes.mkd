@@ -89,6 +89,47 @@ but some point need to be careful:
 
 1. NetTopologySuite.Geometries.Coordinate(Y, X)
 
+### 4.3 DB related
+
+1. use docker Postgres+PostGis
+    - `docker run --name some-postgis -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -d postgis/postgis`
+2. migration is same as using MS SQL Server
+
+    - two pack
+
+        - `dotnet add package Microsoft.EntityFrameworkCore.Design`
+        - `dotnet add package Microsoft.EntityFrameworkCore.Tools`
+
+    - cmd
+        - initial: `dotnet ef migrations add InitialCreate --project StreetBackend`
+        - apply/update: `dotnet ef database update --project StreetBackend`
+
+3. Code First
+
+```c#
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Entity<StreetEntity>()
+        .ToTable("Streets", schema: "streetschema"); // default schema is "public"
+}
+```
+
+4. Postgres
+
+```SQL
+-- Log into PostgreSQL
+psql -h localhost -U postgres
+
+-- List schemas
+\dn
+
+-- List tables in 'public' schema
+\dt public.*
+
+-- View table definition
+\d public."Streets"
+```
+
 ## 5. Daily
 
 Receiving the email at June 11, start at June 13

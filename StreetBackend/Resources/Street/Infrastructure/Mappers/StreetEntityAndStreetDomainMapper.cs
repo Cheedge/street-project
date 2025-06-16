@@ -19,6 +19,7 @@ namespace StreetBackend.Resources.Street.Infrastructure.Mappers
                             .Select(p => new NetTopologySuite.Geometries.Coordinate(p.Y, p.X))
                             .ToArray())
                     )))
+                //.ForMember(dest => dest.RowVersion, opt => opt.Ignore());
                 .ForMember(dest => dest.RowVersion, opt => opt.MapFrom(src => src.RowVersion));
 
             CreateMap<StreetEntity, StreetDomain>()

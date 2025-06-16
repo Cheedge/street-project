@@ -10,7 +10,13 @@ namespace StreetBackend.Resources.Street.Infrastructure.Mappers
 	{
         public StreetDomainAndStreetDtoMapper()
         {
+            // Map Domain Coordinate to CoordinateDto
             CreateMap<Coordinate, CoordinateDto>().ReverseMap();
+
+            // Map NetTopologySuite Coordinate to CoordinateDto
+            CreateMap<NetTopologySuite.Geometries.Coordinate, CoordinateDto>()
+                .ForMember(dest => dest.X, opt => opt.MapFrom(src => src.X))
+                .ForMember(dest => dest.Y, opt => opt.MapFrom(src => src.Y));
 
             CreateMap<StreetDomain, StreetDto>()
                 .ForMember(dest => dest.Coordinates, opt => opt.MapFrom(src => src.Geometry.Geometry.Coordinates))
