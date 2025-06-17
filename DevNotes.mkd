@@ -69,7 +69,8 @@ Accordng to the requiremnet, backend should basically realise:
 3. When sending POST point to a street request, Where street exist, Then add a point to a street
 4. When sending POST street request, Then add a new street
 5. When sending DELET street request, Where the street exist, Then remove the record
-   (X) 6. When sending DELET point of a street request, Where the street exist, Then remove the point.
+
+(X) 6. When sending DELET point of a street request, Where the street exist, Then remove the point.
 
 ## 4. Key Issue
 
@@ -159,7 +160,7 @@ In total 5 days for work.
 -   Day5: (16 Mon, 17 Tue)
     -   Testing
     -   Dockerfile/k8s and docker-compose.yml files
-    -   check and submit
+    -   Merge the final branch to main
 
 ## 6. Opening Issue
 

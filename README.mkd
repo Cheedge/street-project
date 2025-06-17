@@ -1,6 +1,747 @@
-# street-project
+<p align="center">
+    <img src="map_icon.png" align="center" width="30%">
+</p>
+<p align="center"><h1 align="center">STREET PROJECT</h1></p>
+<p align="center">
+	<em><code>❯ Street Backend Demo</code></em>
+</p>
+<p align="center">
+	<img src="https://img.shields.io/github/license/Cheedge/street-project?style=default&logo=opensourceinitiative&logoColor=white&color=0080ff" alt="license">
+	<img src="https://img.shields.io/github/last-commit/Cheedge/street-project?style=default&logo=git&logoColor=white&color=0080ff" alt="last-commit">
+	<img src="https://img.shields.io/github/languages/top/Cheedge/street-project?style=default&color=0080ff" alt="repo-top-language">
+	<img src="https://img.shields.io/github/languages/count/Cheedge/street-project?style=default&color=0080ff" alt="repo-language-count">
+</p>
+<p align="center"><!-- default option, no dependency badges. -->
+</p>
+<p align="center">
+	<!-- default option, no dependency badges. -->
+</p>
+<br>
 
-under root directory run:
+## Table of Contents
 
-docker compose -f 'docker-compose.yml' up -d --build
-docker compose -f 'docker-compose.yml' down
+-   [ Overview](#-overview)
+-   [ Features](#-features)
+-   [ Project Structure](#-project-structure)
+    -   [ Project Index](#-project-index)
+-   [ Getting Started](#-getting-started)
+    -   [ Prerequisites](#-prerequisites)
+    -   [ Installation](#-installation)
+    -   [ Usage](#-usage)
+    -   [ Testing](#-testing)
+-   [ Project Roadmap](#-project-roadmap)
+-   [ Contributing](#-contributing)
+-   [ License](#-license)
+-   [ Acknowledgments](#-acknowledgments)
+
+---
+
+## Overview
+
+<code>❯ This project aims to develop a .NET service featuring a REST API to manage street resources. This service will allow for the creation and deletion of streets, each defined by a name, a geometric representation, and a vehicle capacity. All street data will be persistently stored in a PostgreSQL database utilizing Entity Framework Core for efficient data access. A key feature will be an endpoint to dynamically extend a street's geometry by adding a single point to either its beginning or end, whichever offers a better fit. Crucially, the implementation will also specifically address race conditions on this geometry modification endpoint, ensuring data integrity even under concurrent access scenarios. </code>
+
+---
+
+## Project Structure
+
+```sh
+└── street-project/
+    ├── DevNotes.mkd
+    ├── Dockerfile
+    ├── README.mkd
+    ├── StreetBackend
+    │   ├── Common
+    │   ├── DbInitializer.cs
+    │   ├── Migrations
+    │   ├── Program.cs
+    │   ├── Properties
+    │   ├── Resources
+    │   ├── SqlScripts
+    │   ├── StreetBackend.csproj
+    │   ├── StreetBackend.sln
+    │   ├── appsettings.Development.json
+    │   ├── appsettings.json
+    │   └── nlog.config
+    ├── StreetBackend.Test
+    │   ├── Resources
+    │   ├── StreetBackend.Test.csproj
+    │   └── Usings.cs
+    ├── deployment.yaml
+    └── docker-compose.yml
+```
+
+### Project Index
+
+<details open>
+	<summary><b><code>STREET-PROJECT/</code></b></summary>
+	<details> <!-- __root__ Submodule -->
+		<summary><b>root</b></summary>
+		<blockquote>
+			<table>
+			<tr>
+				<td><b><a href='https://github.com/Cheedge/street-project/blob/master/DevNotes.mkd'>DevNotes.mkd</a></b></td>
+				<td><code>❯ Developer Notes</code></td>
+			</tr>
+			<tr>
+				<td><b><a href='https://github.com/Cheedge/street-project/blob/master/deployment.yaml'>deployment.yaml</a></b></td>
+				<td><code>❯ k8s deployment </code></td>
+			</tr>
+			<tr>
+				<td><b><a href='https://github.com/Cheedge/street-project/blob/master/README.mkd'>README.mkd</a></b></td>
+				<td><code>❯ How to use this demo</code></td>
+			</tr>
+			<tr>
+				<td><b><a href='https://github.com/Cheedge/street-project/blob/master/docker-compose.yml'>docker-compose.yml</a></b></td>
+				<td><code>❯ Docker compose</code></td>
+			</tr>
+			<tr>
+				<td><b><a href='https://github.com/Cheedge/street-project/blob/master/Dockerfile'>Dockerfile</a></b></td>
+				<td><code>❯ Dockerfile</code></td>
+			</tr>
+			</table>
+		</blockquote>
+	</details>
+	<details> <!-- StreetBackend.Test Submodule -->
+		<summary><b>StreetBackend.Test</b></summary>
+		<blockquote>
+			<table>
+			<tr>
+				<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend.Test/StreetBackend.Test.csproj'>StreetBackend.Test.csproj</a></b></td>
+				<td><code>❯ Unit Test</code></td>
+			</tr>
+			<tr>
+				<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend.Test/Usings.cs'>Usings.cs</a></b></td>
+				<td><code>❯ </code></td>
+			</tr>
+			</table>
+			<details>
+				<summary><b>Resources</b></summary>
+				<blockquote>
+					<details>
+						<summary><b>Handlers</b></summary>
+						<blockquote>
+							<table>
+							<tr>
+								<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend.Test/Resources/Handlers/CreateNewStreetCommandHandlerTests.cs'>CreateNewStreetCommandHandlerTests.cs</a></b></td>
+								<td><code>❯ Create new street handler unit test</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend.Test/Resources/Handlers/DeleteStreetCommandHandlerTests.cs'>DeleteStreetCommandHandlerTests.cs</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend.Test/Resources/Handlers/GetAllStreetsQueryHandlerTests.cs'>GetAllStreetsQueryHandlerTests.cs</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend.Test/Resources/Handlers/PostPointToStreetCommandHandlerTests.cs'>PostPointToStreetCommandHandlerTests.cs</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend.Test/Resources/Handlers/GetStreetByFieldQueryHandlerTests.cs'>GetStreetByFieldQueryHandlerTests.cs</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							</table>
+						</blockquote>
+					</details>
+					<details>
+						<summary><b>Domains</b></summary>
+						<blockquote>
+							<table>
+							<tr>
+								<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend.Test/Resources/Domains/StreetDomainTests.cs'>StreetDomainTests.cs</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							</table>
+						</blockquote>
+					</details>
+				</blockquote>
+			</details>
+		</blockquote>
+	</details>
+	<details> <!-- StreetBackend Submodule -->
+		<summary><b>StreetBackend</b></summary>
+		<blockquote>
+			<table>
+			<tr>
+				<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/DbInitializer.cs'>DbInitializer.cs</a></b></td>
+				<td><code>❯ migration settings</code></td>
+			</tr>
+			<tr>
+				<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/nlog.config'>nlog.config</a></b></td>
+				<td><code>❯ Nlog configuration file</code></td>
+			</tr>
+			<tr>
+				<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/StreetBackend.sln'>StreetBackend.sln</a></b></td>
+				<td><code>❯ solution</code></td>
+			</tr>
+			<tr>
+				<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/StreetBackend.csproj'>StreetBackend.csproj</a></b></td>
+				<td><code>❯ main</code></td>
+			</tr>
+			<tr>
+				<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/appsettings.Development.json'>appsettings.Development.json</a></b></td>
+				<td><code>❯ dev env settings</code></td>
+			</tr>
+			<tr>
+				<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/appsettings.json'>appsettings.json</a></b></td>
+				<td><code>❯ app settings</code></td>
+			</tr>
+			<tr>
+				<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/Program.cs'>Program.cs</a></b></td>
+				<td><code>❯ main entry</code></td>
+			</tr>
+			</table>
+			<details>
+				<summary><b>Migrations</b></summary>
+				<blockquote>
+					<table>
+					<tr>
+						<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/Migrations/20250616211904_AddAddPointToStreetSP.cs'>20250616211904_AddAddPointToStreetSP.cs</a></b></td>
+						<td><code>❯ migration file</code></td>
+					</tr>
+					<tr>
+						<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/Migrations/20250616173610_InitialCreate.cs'>20250616173610_InitialCreate.cs</a></b></td>
+						<td><code>❯ initial migration file</code></td>
+					</tr>
+					<tr>
+						<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/Migrations/20250616173610_InitialCreate.Designer.cs'>20250616173610_InitialCreate.Designer.cs</a></b></td>
+						<td><code>❯ Auto generated</code></td>
+					</tr>
+					<tr>
+						<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/Migrations/StreetDbContextModelSnapshot.cs'>StreetDbContextModelSnapshot.cs</a></b></td>
+						<td><code>❯ Auto generated</code></td>
+					</tr>
+					<tr>
+						<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/Migrations/20250616211904_AddAddPointToStreetSP.Designer.cs'>20250616211904_AddAddPointToStreetSP.Designer.cs</a></b></td>
+						<td><code>❯ Auto generated</code></td>
+					</tr>
+					</table>
+				</blockquote>
+			</details>
+			<details>
+				<summary><b>Resources</b></summary>
+				<blockquote>
+					<details>
+						<summary><b>Street</b></summary>
+						<blockquote>
+							<details>
+								<summary><b>Application</b></summary>
+								<blockquote>
+									<details>
+										<summary><b>Queries</b></summary>
+										<blockquote>
+											<table>
+											<tr>
+												<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/Resources/Street/Application/Queries/GetStreetByFieldQuery.cs'>GetStreetByFieldQuery.cs</a></b></td>
+												<td><code>❯ REPLACE-ME</code></td>
+											</tr>
+											<tr>
+												<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/Resources/Street/Application/Queries/GetAllStreetsQuery.cs'>GetAllStreetsQuery.cs</a></b></td>
+												<td><code>❯ REPLACE-ME</code></td>
+											</tr>
+											</table>
+										</blockquote>
+									</details>
+									<details>
+										<summary><b>CommandHandlers</b></summary>
+										<blockquote>
+											<table>
+											<tr>
+												<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/Resources/Street/Application/CommandHandlers/CreateNewStreetCommandHandler.cs'>CreateNewStreetCommandHandler.cs</a></b></td>
+												<td><code>❯ REPLACE-ME</code></td>
+											</tr>
+											<tr>
+												<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/Resources/Street/Application/CommandHandlers/DeletePointFromStreetCommandHandler.cs'>DeletePointFromStreetCommandHandler.cs</a></b></td>
+												<td><code>❯ REPLACE-ME</code></td>
+											</tr>
+											<tr>
+												<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/Resources/Street/Application/CommandHandlers/PostPointToStreetCommandHandler.cs'>PostPointToStreetCommandHandler.cs</a></b></td>
+												<td><code>❯ REPLACE-ME</code></td>
+											</tr>
+											<tr>
+												<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/Resources/Street/Application/CommandHandlers/DeleteStreetCommandHandler.cs'>DeleteStreetCommandHandler.cs</a></b></td>
+												<td><code>❯ REPLACE-ME</code></td>
+											</tr>
+											</table>
+										</blockquote>
+									</details>
+									<details>
+										<summary><b>QueryHandlers</b></summary>
+										<blockquote>
+											<table>
+											<tr>
+												<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/Resources/Street/Application/QueryHandlers/GetAllStreetsQueryHandler.cs'>GetAllStreetsQueryHandler.cs</a></b></td>
+												<td><code>❯ REPLACE-ME</code></td>
+											</tr>
+											<tr>
+												<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/Resources/Street/Application/QueryHandlers/GetStreetByFieldQueryHandler.cs'>GetStreetByFieldQueryHandler.cs</a></b></td>
+												<td><code>❯ REPLACE-ME</code></td>
+											</tr>
+											</table>
+										</blockquote>
+									</details>
+									<details>
+										<summary><b>Commands</b></summary>
+										<blockquote>
+											<table>
+											<tr>
+												<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/Resources/Street/Application/Commands/DeleteStreetCommand.cs'>DeleteStreetCommand.cs</a></b></td>
+												<td><code>❯ REPLACE-ME</code></td>
+											</tr>
+											<tr>
+												<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/Resources/Street/Application/Commands/PostPointToStreetCommand.cs'>PostPointToStreetCommand.cs</a></b></td>
+												<td><code>❯ REPLACE-ME</code></td>
+											</tr>
+											<tr>
+												<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/Resources/Street/Application/Commands/CreateNewStreetCommand.cs'>CreateNewStreetCommand.cs</a></b></td>
+												<td><code>❯ REPLACE-ME</code></td>
+											</tr>
+											<tr>
+												<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/Resources/Street/Application/Commands/DeletePointFromStreetCommand.cs'>DeletePointFromStreetCommand.cs</a></b></td>
+												<td><code>❯ REPLACE-ME</code></td>
+											</tr>
+											</table>
+										</blockquote>
+									</details>
+								</blockquote>
+							</details>
+							<details>
+								<summary><b>API</b></summary>
+								<blockquote>
+									<details>
+										<summary><b>Controllers</b></summary>
+										<blockquote>
+											<table>
+											<tr>
+												<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/Resources/Street/API/Controllers/StreetController.cs'>StreetController.cs</a></b></td>
+												<td><code>❯ REPLACE-ME</code></td>
+											</tr>
+											</table>
+										</blockquote>
+									</details>
+									<details>
+										<summary><b>DTOs</b></summary>
+										<blockquote>
+											<table>
+											<tr>
+												<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/Resources/Street/API/DTOs/StreetDto.cs'>StreetDto.cs</a></b></td>
+												<td><code>❯ REPLACE-ME</code></td>
+											</tr>
+											<tr>
+												<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/Resources/Street/API/DTOs/CoordinateDto.cs'>CoordinateDto.cs</a></b></td>
+												<td><code>❯ REPLACE-ME</code></td>
+											</tr>
+											</table>
+										</blockquote>
+									</details>
+								</blockquote>
+							</details>
+							<details>
+								<summary><b>Domain</b></summary>
+								<blockquote>
+									<table>
+									<tr>
+										<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/Resources/Street/Domain/Coordinate.cs'>Coordinate.cs</a></b></td>
+										<td><code>❯ REPLACE-ME</code></td>
+									</tr>
+									<tr>
+										<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/Resources/Street/Domain/GeometryVo.cs'>GeometryVo.cs</a></b></td>
+										<td><code>❯ REPLACE-ME</code></td>
+									</tr>
+									<tr>
+										<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/Resources/Street/Domain/StreetDomain.cs'>StreetDomain.cs</a></b></td>
+										<td><code>❯ REPLACE-ME</code></td>
+									</tr>
+									</table>
+								</blockquote>
+							</details>
+							<details>
+								<summary><b>Infrastructure</b></summary>
+								<blockquote>
+									<details>
+										<summary><b>Mappers</b></summary>
+										<blockquote>
+											<table>
+											<tr>
+												<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/Resources/Street/Infrastructure/Mappers/StreetEntityAndStreetDomainMapper.cs'>StreetEntityAndStreetDomainMapper.cs</a></b></td>
+												<td><code>❯ REPLACE-ME</code></td>
+											</tr>
+											<tr>
+												<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/Resources/Street/Infrastructure/Mappers/StreetDomainAndStreetDtoMapper.cs'>StreetDomainAndStreetDtoMapper.cs</a></b></td>
+												<td><code>❯ REPLACE-ME</code></td>
+											</tr>
+											</table>
+										</blockquote>
+									</details>
+									<details>
+										<summary><b>Repositories</b></summary>
+										<blockquote>
+											<table>
+											<tr>
+												<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/Resources/Street/Infrastructure/Repositories/StreetRepository.cs'>StreetRepository.cs</a></b></td>
+												<td><code>❯ REPLACE-ME</code></td>
+											</tr>
+											<tr>
+												<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/Resources/Street/Infrastructure/Repositories/IStreetRepository.cs'>IStreetRepository.cs</a></b></td>
+												<td><code>❯ REPLACE-ME</code></td>
+											</tr>
+											</table>
+										</blockquote>
+									</details>
+									<details>
+										<summary><b>Entities</b></summary>
+										<blockquote>
+											<table>
+											<tr>
+												<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/Resources/Street/Infrastructure/Entities/StreetEntity.cs'>StreetEntity.cs</a></b></td>
+												<td><code>❯ REPLACE-ME</code></td>
+											</tr>
+											</table>
+										</blockquote>
+									</details>
+									<details>
+										<summary><b>DbContexts</b></summary>
+										<blockquote>
+											<table>
+											<tr>
+												<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/Resources/Street/Infrastructure/DbContexts/StreetDbContext.cs'>StreetDbContext.cs</a></b></td>
+												<td><code>❯ REPLACE-ME</code></td>
+											</tr>
+											</table>
+										</blockquote>
+									</details>
+								</blockquote>
+							</details>
+						</blockquote>
+					</details>
+				</blockquote>
+			</details>
+			<details>
+				<summary><b>Properties</b></summary>
+				<blockquote>
+					<table>
+					<tr>
+						<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/Properties/launchSettings.json'>launchSettings.json</a></b></td>
+						<td><code>❯ REPLACE-ME</code></td>
+					</tr>
+					</table>
+				</blockquote>
+			</details>
+			<details>
+				<summary><b>SqlScripts</b></summary>
+				<blockquote>
+					<table>
+					<tr>
+						<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/SqlScripts/AddPointToStreet.sql'>AddPointToStreet.sql</a></b></td>
+						<td><code>❯ REPLACE-ME</code></td>
+					</tr>
+					</table>
+				</blockquote>
+			</details>
+			<details>
+				<summary><b>Common</b></summary>
+				<blockquote>
+					<details>
+						<summary><b>Interfaces</b></summary>
+						<blockquote>
+							<table>
+							<tr>
+								<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/Common/Interfaces/ICommandHandler.cs'>ICommandHandler.cs</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/Common/Interfaces/ICommand.cs'>ICommand.cs</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/Common/Interfaces/IQuery.cs'>IQuery.cs</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							<tr>
+								<td><b><a href='https://github.com/Cheedge/street-project/blob/master/StreetBackend/Common/Interfaces/IQueryHandler.cs'>IQueryHandler.cs</a></b></td>
+								<td><code>❯ REPLACE-ME</code></td>
+							</tr>
+							</table>
+						</blockquote>
+					</details>
+				</blockquote>
+			</details>
+		</blockquote>
+	</details>
+</details>
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+Before getting started with street-project, ensure your runtime environment meets the following requirements:
+
+-   **Programming Language:** [<img align="center" src="https://img.shields.io/badge/C%23-239120.svg?style={badge_style}&logo=c-sharp&logoColor=white" />](https://docs.microsoft.com/en-us/dotnet/csharp/)
+-   **Package Manager:** [<img align="center" src="https://img.shields.io/badge/Nuget-1b5d98.svg?style={badge_style}&logo=c-sharp&logoColor=white" />](https://www.nuget.org/)
+-   **Container Runtime:** [<img align="center" src="https://img.shields.io/badge/Docker-2CA5E0.svg?style={badge_style}&logo=docker&logoColor=white" />](https://www.docker.com/)
+-   **Database:** Postgres + PostGis
+
+### Installation and Usage
+
+If you want to try street-project (the backend api), following the following steps:
+
+1. Clone the street-project repository:
+
+```sh
+❯ git clone https://github.com/Cheedge/street-project
+```
+
+2. Navigate to the project directory:
+
+```sh
+❯ cd street-project
+```
+
+3. Using `docker` &nbsp; [<img align="center" src="https://img.shields.io/badge/Docker-2CA5E0.svg?style={badge_style}&logo=docker&logoColor=white" />](https://www.docker.com/)
+
+```sh
+# pull postgres and start project
+❯ docker compose -f 'docker-compose.yml' up -d --build
+```
+
+4. Now you can open the following address in your prefered web browser, and do the test:
+
+```js
+http://localhost:5000/swagger
+```
+
+5. After test run following command to stop:
+
+```bash
+# stop project
+❯ docker compose -f 'docker-compose.yml' down
+```
+
+### Testing
+
+Using [<img align="center" src="https://img.shields.io/badge/xUnit-000000.svg" />](https://docs.microsoft.com/en-us/dotnet/csharp/)
+
+#### 1. `GET` `/api/Street`
+
+Get all Streets
+
+```css
+http: ; //localhost:5000/api/Street
+```
+
+**Response**
+
+Code 200
+
+```json
+[
+    {
+        "id": "aaa40b43-8f08-45fc-9d6e-7773ec058fdb",
+        "name": "No.1 street",
+        "capacity": 30,
+        "coordinates": [
+            {
+                "x": 32.41,
+                "y": 12.34
+            },
+            {
+                "x": 33.33,
+                "y": 12.01
+            }
+        ],
+        "rowVersion": "TdkKmBdc6mY="
+    }
+]
+```
+
+#### 2. `GET` `/api/Street/{id}`
+
+Get Streets by id
+
+```css
+# for example
+http://localhost:5000/api/Street/448ed11a-7194-4f0b-9177-b5afcdbbd6e9
+```
+
+**Response**
+
+Code 200
+
+```json
+{
+    "id": "448ed11a-7194-4f0b-9177-b5afcdbbd6e9",
+    "name": "No.2 street",
+    "capacity": 330,
+    "coordinates": [
+        {
+            "x": 31.31,
+            "y": 61.64
+        },
+        {
+            "x": 32.13,
+            "y": 60.01
+        },
+        {
+            "x": 99.99,
+            "y": 32.12
+        },
+        {
+            "x": 22.62,
+            "y": 56.99
+        }
+    ],
+    "rowVersion": "3NoatnlaDtg="
+}
+```
+
+#### 3. `POST` `/api/Street`
+
+Create a new Streets
+
+```css
+# for example
+http://localhost:5000/api/Street
+```
+
+with body
+
+```json
+{
+    "name": "New Street No.101",
+    "capacity": 300,
+    "coordinates": [
+        {
+            "x": 11.11,
+            "y": 11.01
+        },
+        {
+            "x": 11.13,
+            "y": 12.11
+        }
+    ]
+}
+```
+
+**Response**
+
+Code 200
+
+#### 4. `POST` `/api/Street/{id}/point`
+
+Add a new point to a street
+
+```css
+# for example
+http://localhost:5000/api/Street/448ed11a-7194-4f0b-9177-b5afcdbbd6e9/point
+```
+
+with body
+
+```json
+{
+    "streetId": "448ed11a-7194-4f0b-9177-b5afcdbbd6e9",
+    "newPoint": {
+        "x": 56.99,
+        "y": 22.62
+    },
+    "ifAddPointByStoredProcedualFlag": false
+}
+```
+
+**Response**
+
+Code 204 No Content
+
+##### Different Methods to solve Race condition
+
+We use a flag, `ifAddPointByStoredProceduralFlag`, to toggle between using a stored procedual or direct C# logic for adding points. The code concurrently checks the `RowVersion` to detect if another user is modifying the same row.
+
+This `RowVersion` automatically updates with each change to the row, effectively acting as an optimistic concurrency token. While EF Core can automatically manage this concurrency check when configured with a concurrency token, we faced issues enabling the `pgcrypto` extension required for a direct `RowVersion` implementation on the `PostgreSQL` side. Therefore, we've implemented an alternative mechanism (by passing is to the stored procedual) within the code to achieve this concurrency control (details are available in the code).
+
+#### 5. `DELETE` `/api/Street/{id}`
+
+Delete a street
+
+```css
+# for example
+http://localhost:5000/api/Street/448ed11a-7194-4f0b-9177-b5afcdbbd6e9
+```
+
+**Response**
+
+Code 204 No Content
+
+---
+
+## Project Roadmap
+
+-   [x] **`Task 1`**:
+    -   <strike>Basic structure design
+    -   DB design
+    -   Test cases plan
+    -   Tools choose</strike>
+-   [x] **`Task 2`**:
+    -   <strike>Basic implementation
+    -   Database Migration</strike>
+-   [x] **`Task 3`**:
+    -   <strike>Testing
+    -   Dockerfile/k8s and docker-compose.yml files
+    -   Merge the final branch to main</strike>
+-   [ ] **`Task 4`**:
+    -   Frontend Implementation
+-   [ ] **`Task 5`**:
+    -   Integration
+    -   CICD (GitHub Action and AWS Beanstalk+RDS)
+    -   online (cloudflare)
+
+---
+
+## Contributing
+
+-   **💬 [Join the Discussions](https://github.com/Cheedge/street-project)**: Share your insights, provide feedback, or ask questions.
+-   **🐛 [Report Issues](https://github.com/Cheedge/street-project/issues)**: Submit bugs found or log feature requests for the `street-project` project.
+-   **💡 [Submit Pull Requests](https://github.com/Cheedge/street-project/pulls)**: Review open PRs, and submit your own PRs.
+
+<details closed>
+<summary>Contributing Guidelines</summary>
+
+1. **Fork the Repository**: Start by forking the project repository to your github account.
+2. **Clone Locally**: Clone the forked repository to your local machine using a git client.
+    ```sh
+    git clone https://github.com/Cheedge/street-project
+    ```
+3. **Create a New Branch**: Always work on a new branch, giving it a descriptive name.
+    ```sh
+    git checkout -b new-feature-x
+    ```
+4. **Make Your Changes**: Develop and test your changes locally.
+5. **Commit Your Changes**: Commit with a clear message describing your updates.
+    ```sh
+    git commit -m 'Implemented new feature x.'
+    ```
+6. **Push to github**: Push the changes to your forked repository.
+    ```sh
+    git push origin new-feature-x
+    ```
+7. **Submit a Pull Request**: Create a PR against the original project repository. Clearly describe the changes and their motivations.
+8. **Review**: Once your PR is reviewed and approved, it will be merged into the main branch. Congratulations on your contribution!
+ </details>
+
+<details closed>
+<summary>Contributor Graph</summary>
+<br>
+<p align="left">
+   <a href="https://github.com{/Cheedge/street-project/}graphs/contributors">
+      <img src="https://contrib.rocks/image?repo=Cheedge/street-project">
+   </a>
+</p>
+</details>
+
+---
+
+## License
+
+This project is protected under the [MIT-LICENSE](https://choosealicense.com/licenses/mit) License. For more details, refer to the [LICENSE](https://choosealicense.com/licenses/mit) file.
