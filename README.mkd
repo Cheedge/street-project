@@ -522,7 +522,9 @@ http://localhost:5000/swagger
 
 ### Testing
 
-Using [<img align="center" src="https://img.shields.io/badge/xUnit-000000.svg" />](https://docs.microsoft.com/en-us/dotnet/csharp/)
+[<img align="center" src="https://img.shields.io/badge/xUnit-000000.svg" />](https://docs.microsoft.com/en-us/dotnet/csharp/)
+
+Test on Swagger UI
 
 #### 1. `GET` `/api/Street`
 
