@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NLog;
 using NLog.Web;
+using StreetBackend;
 using StreetBackend.Common.Interfaces;
 using StreetBackend.Resources.Street.API.DTOs;
 using StreetBackend.Resources.Street.Application.CommandHandlers;
@@ -65,6 +66,12 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+
+// use initializer
+using (var scope = app.Services.CreateScope())
+{
+    await DbInitializer.InitializeAsync(scope.ServiceProvider);
 }
 
 app.UseHttpsRedirection();

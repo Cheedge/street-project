@@ -73,4 +73,11 @@
   <ItemGroup>
     <None Include="StreetBackend.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="SqlScripts\**\*.*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

@@ -160,3 +160,11 @@ In total 5 days for work.
     -   Testing
     -   Dockerfile/k8s and docker-compose.yml files
     -   check and submit
+
+## 6. Opening Issue
+
+1. deployment on AWS
+2. RowVersion issue when using SP, should change after update,
+   while when debuging it changed, but normally run not, guess
+   related with the EF on memory issue.
+3. pgcrypto not work locally, which induce other RowVersion issue

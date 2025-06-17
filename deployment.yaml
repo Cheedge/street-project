@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: street-backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: street-backend
+  template:
+    metadata:
+      labels:
+        app: street-backend
+    spec:
+      containers:
+      - name: street-backend
+        image: cheedge/street-backend:latest
+        ports:
+        - containerPort: 80
+        env:
+          - name: ConnectionStrings__DefaultConnection
+            value: Host=postgres;Port=5432;Database=postgres;Username=postgres;Password=mysecretpassword
+
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: street-backend-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: street-backend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
