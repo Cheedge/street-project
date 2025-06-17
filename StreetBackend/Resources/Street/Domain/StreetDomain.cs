@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Cryptography;
 using NetTopologySuite.Geometries;
 
 namespace StreetBackend.Resources.Street.Domain
@@ -48,7 +49,9 @@ namespace StreetBackend.Resources.Street.Domain
 
             var geometry = new GeometryVo(points);
 
-            return new StreetDomain(Guid.NewGuid(), name, capacity, geometry, new byte[8] { 1, 2, 3, 4, 5, 6, 7, 8 });
+            var newVersion = RandomNumberGenerator.GetBytes(8);
+
+            return new StreetDomain(Guid.NewGuid(), name, capacity, geometry, newVersion);
         }
 
         public void AddPointToEnd(Coordinate point)

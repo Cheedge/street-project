@@ -37,6 +37,9 @@ namespace StreetBackend.Resources.Street.Infrastructure.Repositories
 
         public async Task AddAsync(StreetDomain street)
         {
+            // TODO: new version is redundent here, as in my domain
+            //       already set a new version. but some issue as new
+            //       version not change, need to fix
             var newVersion = RandomNumberGenerator.GetBytes(8);
             street.SetRowVersion(newVersion);
             var entity = _mapper.Map<StreetEntity>(street);
@@ -44,19 +47,23 @@ namespace StreetBackend.Resources.Street.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Update the street points (Obsolete!)
+        /// </summary>
+        /// <param name="street"></param>
+        /// <returns></returns>
         public async Task UpdateAsync(StreetDomain street)
         {
-            var newVersion = RandomNumberGenerator.GetBytes(8);
-            street.SetRowVersion(newVersion);
             var entity = _mapper.Map<StreetEntity>(street);
             _context.Streets.Update(entity);
             await _context.SaveChangesAsync();
+            street.SetRowVersion(entity.RowVersion);
         }
 
         public async Task UpdateStreetByAlgoAsync(StreetDomain street)
         {
-            var newVersion = RandomNumberGenerator.GetBytes(8);
-            street.SetRowVersion(newVersion);
+            //var newVersion = RandomNumberGenerator.GetBytes(8);
+            //street.SetRowVersion(newVersion);
             var entity = _mapper.Map<StreetEntity>(street);
 
             var trackedEntity = _context.Streets.Local.FirstOrDefault(e => e.Id == street.Id);
@@ -73,7 +80,7 @@ namespace StreetBackend.Resources.Street.Infrastructure.Repositories
             try
             {
                 await _context.SaveChangesAsync();
-                street.SetRowVersion(entity.RowVersion); // Read new version from DB
+                street.SetRowVersion(entity.RowVersion);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -85,7 +92,8 @@ namespace StreetBackend.Resources.Street.Infrastructure.Repositories
         {
             try
             {
-                // TODO: need to use pgcrypto, but failed, for now just use this.
+                // TODO: need to use pgcrypto, but failed, for now just passing in the
+                //       row version as parameter.
                 var newVersion = RandomNumberGenerator.GetBytes(8);
                 await _context.Database.ExecuteSqlInterpolatedAsync(
                     $"SELECT add_point_to_street({street.Id}, {coord.X}, {coord.Y}, {isCloserToStart}, {street.RowVersion}, {newVersion})"
