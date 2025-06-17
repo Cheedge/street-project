@@ -57,9 +57,6 @@ nunit-*.xml
 .DS_Store
 .DS_Store/*
 
-# migration
-Migrations/
-
 # temp
 [Tt]mp/
 [Tt]emp/

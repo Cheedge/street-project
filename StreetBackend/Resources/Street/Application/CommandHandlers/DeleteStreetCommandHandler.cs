@@ -20,7 +20,7 @@ namespace StreetBackend.Resources.Street.Application.CommandHandlers
 
         public async Task HandleAsync(DeleteStreetCommand command)
         {
-            await _repository.DeleteAsync(command.StreetId);
+            await _repository.DeleteStreetAsync(command.StreetId);
         }
     }
 }

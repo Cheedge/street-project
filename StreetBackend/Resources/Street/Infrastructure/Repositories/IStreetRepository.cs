@@ -9,7 +9,9 @@ namespace StreetBackend.Resources.Street.Infrastructure.Repositories
         Task<List<StreetDomain>> GetAllAsync();
         Task AddAsync(StreetDomain street);
         Task UpdateAsync(StreetDomain street);
-        Task DeleteAsync(Guid id);
+        Task UpdateStreetByAlgoAsync(StreetDomain street);
+        Task UpdateStreetByStoredProcedualAsync(StreetDomain street, Coordinate coord, bool isCloserToStart);
+        Task DeleteStreetAsync(Guid id);
     }
 }
 

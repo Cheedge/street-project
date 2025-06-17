@@ -25,17 +25,25 @@ namespace StreetBackend.Resources.Street.Application.CommandHandlers
 
         public async Task HandleAsync(PostPointToStreetCommand command)
         {
-            var street = await _repository.GetByIdAsync(command.StreetId);
+            var street = await _repository.GetByIdAsync(command.StreetId)??
+                throw new ArgumentNullException($"street doesnt have such id: {command.StreetId}");
             var newPoint = new Coordinate(command.NewPoint.X, command.NewPoint.Y);
-            if (street.IsCloserToStart(newPoint))
+            if (command.IfAddPointByStoredProcedualFlag)
             {
-                street.AddPointToStart(newPoint);
+                await _repository.UpdateStreetByStoredProcedualAsync(street, newPoint, street.IsCloserToStart(newPoint));
             }
             else
             {
-                street.AddPointToEnd(newPoint);
+                if (street.IsCloserToStart(newPoint))
+                {
+                    street.AddPointToStart(newPoint);
+                }
+                else
+                {
+                    street.AddPointToEnd(newPoint);
+                }
+                await _repository.UpdateStreetByAlgoAsync(street);
             }
-            await _repository.UpdateAsync(street);
         }
     }
 }

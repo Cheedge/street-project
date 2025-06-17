@@ -72,13 +72,22 @@ namespace StreetBackend.Resources.Street.API.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id:guid}/point")]
-        public async Task<IActionResult> DeletePoint(Guid id, [FromBody] DeletePointFromStreetCommand command)
-        {
-            if (id != command.StreetId) return BadRequest("Mismatched ID");
-            await _deletePointCommandHandler.HandleAsync(command);
-            return NoContent();
-        }
+        /// <summary>
+        /// Delete Point from a street
+        /// TODO: not finished, because no such requirement yet
+        ///       as we already have a update street point, for
+        ///       now it may be redundent. (need re-check)
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        //[HttpDelete("{id:guid}/point")]
+        //public async Task<IActionResult> DeletePoint(Guid id, [FromBody] DeletePointFromStreetCommand command)
+        //{
+        //    if (id != command.StreetId) return BadRequest("Mismatched ID");
+        //    await _deletePointCommandHandler.HandleAsync(command);
+        //    return NoContent();
+        //}
 
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> Delete(Guid id)

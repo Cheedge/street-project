@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Data;
+using System.Security.Cryptography;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using StreetBackend.Resources.Street.Domain;
@@ -35,21 +37,68 @@ namespace StreetBackend.Resources.Street.Infrastructure.Repositories
 
         public async Task AddAsync(StreetDomain street)
         {
+            var newVersion = RandomNumberGenerator.GetBytes(8);
+            street.SetRowVersion(newVersion);
             var entity = _mapper.Map<StreetEntity>(street);
             _context.Streets.Add(entity);
             await _context.SaveChangesAsync();
-            street.SetRowVersion(entity.RowVersion);
         }
 
         public async Task UpdateAsync(StreetDomain street)
         {
+            var newVersion = RandomNumberGenerator.GetBytes(8);
+            street.SetRowVersion(newVersion);
             var entity = _mapper.Map<StreetEntity>(street);
             _context.Streets.Update(entity);
             await _context.SaveChangesAsync();
-            street.SetRowVersion(entity.RowVersion);
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task UpdateStreetByAlgoAsync(StreetDomain street)
+        {
+            var newVersion = RandomNumberGenerator.GetBytes(8);
+            street.SetRowVersion(newVersion);
+            var entity = _mapper.Map<StreetEntity>(street);
+
+            var trackedEntity = _context.Streets.Local.FirstOrDefault(e => e.Id == street.Id);
+            if (trackedEntity != null)
+            {
+                _context.Entry(trackedEntity).CurrentValues.SetValues(entity);
+            }
+            else
+            {
+                _context.Streets.Attach(entity);
+                _context.Entry(entity).State = EntityState.Modified;
+            }
+
+            try
+            {
+                await _context.SaveChangesAsync();
+                street.SetRowVersion(entity.RowVersion); // Read new version from DB
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw new DBConcurrencyException("The street was modified by another user.");
+            }
+        }
+
+        public async Task UpdateStreetByStoredProcedualAsync(StreetDomain street, Coordinate coord, bool isCloserToStart)
+        {
+            try
+            {
+                // TODO: need to use pgcrypto, but failed, for now just use this.
+                var newVersion = RandomNumberGenerator.GetBytes(8);
+                await _context.Database.ExecuteSqlInterpolatedAsync(
+                    $"SELECT add_point_to_street({street.Id}, {coord.X}, {coord.Y}, {isCloserToStart}, {street.RowVersion}, {newVersion})"
+                );
+                street.SetRowVersion(newVersion);
+            }
+            catch (DbUpdateException ex) when (ex.InnerException?.Message.Contains("Concurrency conflict") == true)
+            {
+                throw new DBConcurrencyException("The street was modified by another user.");
+            }
+        }
+
+        public async Task DeleteStreetAsync(Guid id)
         {
             var entity = await _context.Streets.FindAsync(id);
             if (entity != null)

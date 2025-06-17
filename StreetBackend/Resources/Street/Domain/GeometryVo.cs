@@ -25,7 +25,7 @@ namespace StreetBackend.Resources.Street.Domain
         public GeometryVo AddPointToStart(Coordinate point)
         {
             var coords = Geometry.Coordinates.ToList();
-            coords.Insert(0, new NetTopologySuite.Geometries.Coordinate(point.Y, point.X));
+            coords.Insert(0, new NetTopologySuite.Geometries.Coordinate(point.X, point.Y));
             return new GeometryVo(ToCoordinates(coords));
         }
 

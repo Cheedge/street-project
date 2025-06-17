@@ -47,6 +47,7 @@
     <None Remove="Resources\Street\Application\QueryHandlers\" />
     <None Remove="Resources\Street\Infrastructure\Repositories\" />
     <None Remove="Resources\Street\Infrastructure\DbContexts\" />
+    <None Remove="SqlScripts\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -67,6 +68,7 @@
     <Folder Include="Resources\Street\Application\QueryHandlers\" />
     <Folder Include="Resources\Street\Infrastructure\Repositories\" />
     <Folder Include="Resources\Street\Infrastructure\DbContexts\" />
+    <Folder Include="SqlScripts\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="StreetBackend.csproj" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 using StreetBackend.Resources.Street.Infrastructure.Entities;
 
 namespace StreetBackend.Resources.Street.Infrastructure.DbContexts
@@ -20,6 +21,7 @@ namespace StreetBackend.Resources.Street.Infrastructure.DbContexts
                 .HasKey(e => e.Id);
 
             // for optimistic concurrency
+            // TODO: there is issue with pgcrypto extension, so temperaly use thiss
             modelBuilder.Entity<StreetEntity>()
                 .Property(e => e.RowVersion)
                 .IsRowVersion()

@@ -8,6 +8,7 @@ namespace StreetBackend.Resources.Street.Application.Commands
 	{
         public Guid StreetId { get; set; }
         public required CoordinateDto NewPoint { get; set; }
+        public bool IfAddPointByStoredProcedualFlag { get; set; }
     }
 }
 
